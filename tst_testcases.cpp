@@ -10,6 +10,7 @@
 #include <vector>
 #include <chrono>
 #include <sstream>
+#include <set>
 using namespace std;
 
 // add necessary includes here
@@ -91,7 +92,6 @@ TestCases::TestCases() {
 TestCases::~TestCases() { /* No global data used needed */}
 
 void TestCases::TEST0_warning() {
-    QFAIL("Read the warnings in the tst_testcases.cpp file, then remove this warning.");
     // Notable issues:
     // 1. because you have an r-value version of insert_at_cursor declared.
     //        the test harness might accidently call that version before
@@ -112,8 +112,6 @@ void TestCases::TEST0_warning() {
  * Buffer: [ a b c d e f g ]
  */
 void TestCases::TEST1A_insert_at_test_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     for (char ch = 'a'; ch < 'g'; ch++) {
         buf.insert_at_cursor(ch);
@@ -131,8 +129,6 @@ void TestCases::TEST1A_insert_at_test_basic() {
  * Buffer: [ a b c d e f g ] -> [ a b c d e ] -> [ a b c d e x y z]
  */
 void TestCases::TEST1B_insert_then_delete_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     for (char ch = 'a'; ch <= 'g'; ch++) {
         buf.insert_at_cursor(ch);
@@ -163,8 +159,6 @@ void TestCases::TEST1B_insert_then_delete_basic() {
  * Buffer: [ a b c ] -> [ a b e ]
  */
 void TestCases::TEST1C_edit_at_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     char a = 'a';
     char b = 'b';
@@ -188,8 +182,6 @@ void TestCases::TEST1C_edit_at_basic() {
  * Buffer: [ a b c d e f g ]
  */
 void TestCases::TEST1D_insert_move_cursor_at_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     for (char ch = 'a'; ch < 'g'; ch++) {
         buf.insert_at_cursor(ch);
@@ -209,8 +201,6 @@ void TestCases::TEST1D_insert_move_cursor_at_basic() {
  * End result: [ a b c d e f g h i j ]
  */
 void TestCases::TEST1E_insert_delete_mixed_hard() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     for (int i = 0; i < 10; ++i) {
         char ch = 'a' + i;
@@ -230,8 +220,6 @@ void TestCases::TEST1E_insert_delete_mixed_hard() {
  * Verifies that delete_at_cursor when cursor_index = 0 is a no-op.
  */
 void TestCases::TEST1F_delete_empty_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     for (size_t i = 0; i < 10; ++i) {
         char ch = 'a' + i;
@@ -255,8 +243,6 @@ void TestCases::TEST1F_delete_empty_basic() {
  * Interweaves insert and move cursor calls.
  */
 void TestCases::TEST1G_insert_move_mixed() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     for (char ch = 'a'; ch <= 'g'; ch++) {
         buf.insert_at_cursor(ch);
@@ -272,8 +258,6 @@ void TestCases::TEST1G_insert_move_mixed() {
  * Checks if move_cursor by large amounts work correctly.
  */
 void TestCases::TEST1H_move_cursor_jump() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     for (char ch = 'a'; ch <= 'g'; ch++) {
         buf.insert_at_cursor(ch);
@@ -290,8 +274,6 @@ void TestCases::TEST1H_move_cursor_jump() {
  * Uses move and at to verify all elements are correct.
  */
 void TestCases::TEST1I_reserve_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     vector<char> vec;
     for (char ch = 'a'; ch <= 'o'; ++ch) {
@@ -310,8 +292,6 @@ void TestCases::TEST1I_reserve_basic() {
  * Calls reserve explicitly and checks for off-by-one errors.
  */
 void TestCases::TEST1J_reserve_edge() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf;
     char h = 'H';
     for (size_t i = 0; i < 10; ++i) {
@@ -339,8 +319,6 @@ void TestCases::TEST1J_reserve_edge() {
  * Lesson: Write unit tests!
  */
 void TestCases::TEST1K_reserve_explicit_stress() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     const size_t stress_size = 10000;
     GapBuffer<size_t> buf;
     buf.reserve(stress_size);
@@ -364,8 +342,6 @@ void TestCases::TEST1K_reserve_explicit_stress() {
  * and verifies that at and get_at_cursor returns const_references.
  */
 void TestCases::TEST2A_const_test() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<int> buf;
     for (size_t i = 0; i < 20; ++i) {
         buf.insert_at_cursor(i);
@@ -390,8 +366,6 @@ void TestCases::TEST2A_const_test() {
  * Tests the fill constructor by creating GapBuffer of 200 elements
 */
 void TestCases::TEST3A_fill_constructor_test_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<char> buf(200, 'c');
     for (int i = 0; i < 200; ++i) {
         QVERIFY(buf.at(i) == 'c');
@@ -404,7 +378,6 @@ void TestCases::TEST3A_fill_constructor_test_basic() {
  * Tests insertion to ensure that is still possible.
  */
 void TestCases::TEST3B_fill_constructor_edge() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
     GapBuffer<char> buf_zero(0, '%');
     QVERIFY(buf_zero.size() == 0);
     QVERIFY(buf_zero.cursor_index() == 0);
@@ -443,7 +416,6 @@ void TestCases::TEST3B_fill_constructor_edge() {
  * QSKIP prevents compiler errors even if you haven't implemented it.
  */
 void TestCases::TEST3C_index_operator_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
     GapBuffer<char> buf;
     for (char ch = 'a'; ch < 'g'; ch++) {
         buf.insert_at_cursor(ch);
@@ -458,8 +430,6 @@ void TestCases::TEST3C_index_operator_basic() {
  * Does the same test as TEST2A, but with operator[].
  */
 void TestCases::TEST3D_index_operator_const() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<int> buf;
     for (size_t i = 0; i < 20; ++i) {
         buf.insert_at_cursor(i);
@@ -484,7 +454,6 @@ void TestCases::TEST3D_index_operator_const() {
  * Verifies the reference returned by operator[] is correct.
  */
 void TestCases::TEST3E_index_operator_reference_advanced() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
     GapBuffer<int> buf;
     for (size_t i = 0; i < 10; ++i) {
         buf.insert_at_cursor(i);
@@ -504,7 +473,6 @@ void TestCases::TEST3E_index_operator_reference_advanced() {
  * Verifies that operator << for ostreams is correct.
  */
 void TestCases::TEST3F_ostream_insertion_basic() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
     GapBuffer<int> buf;
     for (size_t i = 1; i <= 5; ++i) {
         buf.insert_at_cursor(i);
@@ -531,8 +499,6 @@ void TestCases::TEST3F_ostream_insertion_basic() {
  * Verifies a few edge cases for operator<<.
  */
 void TestCases::TEST3G_ostream_insertion_edge() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
-
     GapBuffer<int> new_buf;
     std::ostringstream oss4;
     oss4 << new_buf;
@@ -566,7 +532,6 @@ void TestCases::TEST3G_ostream_insertion_edge() {
  * Verifies that the operator << can be chained.
  */
 void TestCases::TEST3H_ostream_insertion_chain() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
     GapBuffer<int> new_buf;
     std::ostringstream oss4;
     oss4 << new_buf << new_buf << new_buf;
@@ -577,7 +542,6 @@ void TestCases::TEST3H_ostream_insertion_chain() {
  * Verifies operator== and operator!= correctly implemented.
  */
 void TestCases::TEST3I_equality_inequality_operator() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
     GapBuffer<char> buf1;
     GapBuffer<char> buf2;
     GapBuffer<char> buf3;
@@ -614,7 +578,6 @@ void TestCases::TEST3I_equality_inequality_operator() {
  * Verifies comparison operators (<, >, <=, >=) correctly implemented.
  */
 void TestCases::TEST3J_comparison_operator() {
-    QSKIP("Remove this statement once you've templatized your part 3 code.");
     GapBuffer<char> buf1;
     GapBuffer<char> buf2;
     GapBuffer<char> buf3;
@@ -946,7 +909,7 @@ void TestCases::TEST6F_comparison_operator_set() {
     GapBuffer<char> buf5{};
     GapBuffer<char> buf6{'a','v','e','r','y'};
 
-    std::set<GapBuffer<char>> bufs {buf1, buf2, buf3, buf4, buf5, buf6};
+    std::set<GapBuffer<char> > bufs {buf1, buf2, buf3, buf4, buf5, buf6};
     auto iter = bufs.begin();
     QVERIFY(*iter++ == buf5);
     QVERIFY(*iter++ == buf4);

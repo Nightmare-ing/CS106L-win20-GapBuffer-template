@@ -122,7 +122,7 @@ GapBuffer<T>::GapBuffer() :
     _cursor_index(0),
     _gap_size(kDefaultSize) {
 
-    _elems = new char[_buffer_size];
+    _elems = new value_type[_buffer_size];
 }
 
 template <typename T>
@@ -132,7 +132,7 @@ GapBuffer<T>::GapBuffer(size_type count, const value_type& val) :
     _cursor_index(_logical_size),
     _gap_size(_buffer_size - _logical_size){
 
-    _elems = new char[_buffer_size];
+    _elems = new value_type[_buffer_size];
     for (size_t i = 0; i < count; ++i) {
         _elems[i] = val;
     }
@@ -220,20 +220,19 @@ std::ostream& operator<<(std::ostream& os, const GapBuffer<T>& buf) {
 
     if (buf.size() == 0) {
         os << "^";
-    }
-
-    for (GapBuffer<T>::size_type i = 0; i < buf.size(); ++i) {
-        if (buf.cursor_index() == i) {
+    } else {
+        for (typename GapBuffer<T>::size_type i = 0; i < buf.size(); ++i) {
+            if (buf.cursor_index() == i) {
+                os << "^";
+            }
+            os << buf[i];
+            if (i != buf.size() - 1) {
+                os << ", ";
+            }
+        }
+        if (buf.cursor_index() == buf.size()) {
             os << "^";
         }
-        os << buf[i];
-        if (i != buf.size() - 1) {
-            os << ", ";
-        }
-    }
-
-    if (buf.cursor_index() == buf.size()) {
-        os << "^";
     }
 
     os << "}";
@@ -241,41 +240,45 @@ std::ostream& operator<<(std::ostream& os, const GapBuffer<T>& buf) {
     return os;
 }
 
-//template <typename T>
-//bool operator==(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-//    return std::equal(left.begin(), left.end(), right.begin());
-//}
+template <typename T>
+bool operator==(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+    auto& lhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
+    auto& rhs_nonconst = const_cast<GapBuffer<T>&>(rhs);
+    return std::equal(lhs_nonconst.begin(), lhs_nonconst.end(), rhs_nonconst.begin(), rhs_nonconst.end());
+}
 
-//template <typename T>
-//bool operator!=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-//    return !(left == right);
-//}
+template <typename T>
+bool operator!=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+    return !(lhs == rhs);
+}
 
-//template <typename T>
-//bool operator<(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-//    return std::lexicographical_compare(left.begin(), left.end(), right.begin(), right.end());
+template <typename T>
+bool operator<(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+    auto& lhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
+    auto& rhs_nonconst = const_cast<GapBuffer<T>&>(rhs);
+    return std::lexicographical_compare(lhs_nonconst.begin(), lhs_nonconst.end(), rhs_nonconst.begin(), rhs_nonconst.end());
 
-//    // Hint: if you get warnings about const_iterator, you can try using const_cast
-//    // as a hack to cast away the const-ness of your parameter.
-//    // auto& lhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
-//    // auto& rhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
-//    // use lhs_nonconst.begin(), etc.
-//}
+    // Hint: if you get warnings about const_iterator, you can try using const_cast
+    // as a hack to cast away the const-ness of your parameter.
+    // auto& lhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
+    // auto& rhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
+    // use lhs_nonconst.begin(), etc.
+}
 
-//template <typename T>
-//bool operator>(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-//    return !(left < right);
-//}
+template <typename T>
+bool operator>(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+    return !(lhs < rhs) && (lhs != rhs);
+}
 
-//template <typename T>
-//bool operator<=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-//    return (left < right) || (left == right);
-//}
+template <typename T>
+bool operator<=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+    return (lhs < rhs) || (lhs == rhs);
+}
 
-//template <typename T>
-//bool operator>=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-//    return (left > right) || (left == right)
-//}
+template <typename T>
+bool operator>=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+    return (lhs > rhs) || (lhs == rhs);
+}
 
 // Part 4: turn everything into a template!
 
@@ -283,51 +286,55 @@ std::ostream& operator<<(std::ostream& os, const GapBuffer<T>& buf) {
 // Part 5: Implement iterators
 template <typename T>
 typename GapBufferIterator<T>::reference GapBufferIterator<T>::operator*() {
-    // TODO: implement this operator (~1 line long)
+    return _pointee->_elems[_index];
 }
 
 template <typename T>
 GapBufferIterator<T>& GapBufferIterator<T>::operator++() {
-    // TODO: implement this prefix operator (~2 lines long)
+    ++_index;
+    return *this;
 }
 
 template <typename T>
 GapBufferIterator<T> GapBufferIterator<T>::operator++(int) {
-    // TODO: implement this postfix operator (~3 lines long)
+    auto old_iterator = *this;
+    ++_index;
+    return std::move(old_iterator);
 }
 
 template <typename T>
 GapBufferIterator<T>& GapBufferIterator<T>::operator--() {
-    // TODO: implement this prefix operator (~2 lines long)
+    --_index;
+    return *this;
 }
 
 template <typename T>
 GapBufferIterator<T> GapBufferIterator<T>::operator--(int) {
-    // TODO: implement this postfix operator (~3 lines long)
+    auto old_iterator = *this;
+    --_index;
+    return old_iterator;
 }
 
 template <typename T>
 GapBufferIterator<T> operator+(const GapBufferIterator<T>& lhs,
                                typename GapBufferIterator<T>::size_type diff) {
-    // TODO: implement this operator (~3 lines long)
-    // Note: this operator is not a friend of the GapBufferIterator class
-    // Hint: write the operator in terms of +=
+    GapBufferIterator<T> new_iterator = lhs;
+    new_iterator += diff;
+    return new_iterator;
 }
 
 template <typename T>
 GapBufferIterator<T> operator+(typename GapBufferIterator<T>::size_type diff,
                                const GapBufferIterator<T>& rhs) {
-    // TODO: implement this operator (~1 line long)
-    // Note: this operator is not a friend of the GapBufferIterator class
-    // Hint: write the operator in terms of the operator+ you wrote above.
+    return rhs + diff;
 }
 
 template <typename T>
 GapBufferIterator<T> operator-(const GapBufferIterator<T>& lhs,
                                typename GapBufferIterator<T>::size_type diff) {
-    // TODO: implement this operator (~3 lines long)
-    // Note: this operator is not a friend of the GapBufferIterator class
-    // Hint: write the operator in terms of -=
+    GapBufferIterator<T> new_iterator = lhs;
+    new_iterator -= diff;
+    return new_iterator;
 }
 
 // The functions that are part of the GapBuffer class is provided for you!
