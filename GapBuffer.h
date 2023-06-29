@@ -116,131 +116,166 @@ private:
 
 // Part 1: basic functions
 template <typename T>
-GapBuffer<T>::GapBuffer() {
-    // TODO: Implement the default constructor (~5 lines long)
-    // use member initialization list
+GapBuffer<T>::GapBuffer() :
+    _logical_size(0),
+    _buffer_size(kDefaultSize),
+    _cursor_index(0),
+    _gap_size(kDefaultSize) {
+
+    _elems = new char[_buffer_size];
 }
 
 template <typename T>
-GapBuffer<T>::GapBuffer(size_type count, const value_type& val)  {
-    // TODO: Implement the fill constructor (~6 lines long)
-    // use member initialization list
+GapBuffer<T>::GapBuffer(size_type count, const value_type& val) :
+    _logical_size(count),
+    _buffer_size(2 * count),
+    _cursor_index(_logical_size),
+    _gap_size(_buffer_size - _logical_size){
+
+    _elems = new char[_buffer_size];
+    for (size_t i = 0; i < count; ++i) {
+        _elems[i] = val;
+    }
 }
 
 template <typename T>
 void GapBuffer<T>::insert_at_cursor(const_reference element) {
-    // TODO: implement this function (~7 lines long)
-    // Hint: call reserve() to resize
+    if (_gap_size == 0) {
+        reserve(2 * _buffer_size);
+    }
+
+    _elems[_cursor_index] = element;
+    ++_cursor_index;
+    ++_logical_size;
+    --_gap_size;
 }
 
 template <typename T>
 void GapBuffer<T>::delete_at_cursor() {
-    // TODO: implement this function (~4 lines long)
+    if (_cursor_index == 0) {
+        return;
+    }
+    --_logical_size;
+    --_cursor_index;
+    ++_gap_size;
 }
 
 template <typename T>
 typename GapBuffer<T>::reference GapBuffer<T>::get_at_cursor() {
-    // TODO: implement this function (~1 line long)
-    // Hint: check out the indexing helper functions we provide
-    // Be sure to use the static_cast/const_cast trick here after implementing the const-version.
+    return const_cast<reference>(static_cast<const GapBuffer<T>*>(this)->get_at_cursor());
 }
 
 template <typename T>
 typename GapBuffer<T>::reference GapBuffer<T>::at(size_type pos) {
-    // TODO: implement this function (~1 line long)
-    // Hint: at should do error-checking!
-}
-
-template <typename T>
-typename GapBuffer<T>::size_type GapBuffer<T>::size() const {
-    // TODO: implement this function (~1 line long)
-}
-
-template <typename T>
-typename GapBuffer<T>::size_type GapBuffer<T>::cursor_index() const {
-    // TODO: implement this function (~1 line long)
-    // Hint: check out the indexing helper functions we provide
-}
-
-template <typename T>
-bool GapBuffer<T>::empty() const {
-    // TODO: implement this function (~1 line long)
+    return const_cast<reference>(static_cast<const GapBuffer<T>*>(this)->at(pos));
 }
 
 // Part 2: const-correctness
 
 template <typename T>
 typename GapBuffer<T>::const_reference GapBuffer<T>::get_at_cursor() const {
-    // TODO: implement this function (~1 line long)
-    // Hint: check out the indexing helper functions we provide
-    // Be sure to use the static_cast/const_cast trick in the non-const version.
+    if (_cursor_index == _logical_size) {
+        throw std::string("No element after the cursor");
+    }
+    return _elems[_cursor_index];
 }
 
 template <typename T>
 typename GapBuffer<T> ::const_reference GapBuffer<T>::at(size_type pos) const {
-    // TODO: implement this function (~1 line long)
-    // Hint: check out the indexing helper functions we provide
-    // Be sure to use the static_cast/const_cast trick in the non-const version.
+    if (pos >= _logical_size || pos < 0) {
+        throw std::string("external index out of bounds");
+    }
+    return _elems[to_array_index(pos)];
+}
+
+template <typename T>
+typename GapBuffer<T>::size_type GapBuffer<T>::size() const {
+    return _logical_size;
+}
+
+template <typename T>
+typename GapBuffer<T>::size_type GapBuffer<T>::cursor_index() const {
+    return _cursor_index;
+}
+
+template <typename T>
+bool GapBuffer<T>::empty() const {
+    return _logical_size == 0;
 }
 
 // Part 3: operator overloading
 template <typename T>
 typename GapBuffer<T>::reference GapBuffer<T>::operator[](size_type pos) {
-    // TODO: implement this function (~1 line long)
-    // Hint: check out the indexing helper functions we provide
-    // Be sure to use the static_cast/const_cast trick here after implementing the const-version.
+    return const_cast<reference>(static_cast<const GapBuffer<T>*>(this)->operator [](pos));
 }
 
 template <typename T>
 typename GapBuffer<T>::const_reference GapBuffer<T>::operator[](size_type pos) const {
-    // TODO: implement this function (~1 line long)
-    // Hint: check out the indexing helper functions we provide
-    // Be sure to use the static_cast/const_cast trick in the non-const version.
+    return _elems[to_array_index(pos)];
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const GapBuffer<T>& buf) {
-    // TODO: implement this operator (~18 lines long)
+    os << "{";
+
+    if (buf.size() == 0) {
+        os << "^";
+    }
+
+    for (GapBuffer<T>::size_type i = 0; i < buf.size(); ++i) {
+        if (buf.cursor_index() == i) {
+            os << "^";
+        }
+        os << buf[i];
+        if (i != buf.size() - 1) {
+            os << ", ";
+        }
+    }
+
+    if (buf.cursor_index() == buf.size()) {
+        os << "^";
+    }
+
+    os << "}";
+
+    return os;
 }
 
-template <typename T>
-bool operator==(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-    // TODO: implement this operator (~1 line long)
-    // Hint: std::equal can be used after you implement iterators
-}
+//template <typename T>
+//bool operator==(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+//    return std::equal(left.begin(), left.end(), right.begin());
+//}
 
-template <typename T>
-bool operator!=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-    // TODO: implement this operator (~1 line long)
-    // Hint: how are == and != related?
-}
+//template <typename T>
+//bool operator!=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+//    return !(left == right);
+//}
 
-template <typename T>
-bool operator<(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-    // TODO: implement this operator (~3 lines long)
-    // Hint: std::lexicographical_compare can be used after you implement iterators.
+//template <typename T>
+//bool operator<(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+//    return std::lexicographical_compare(left.begin(), left.end(), right.begin(), right.end());
 
-    // Hint: if you get warnings about const_iterator, you can try using const_cast
-    // as a hack to cast away the const-ness of your parameter.
-    // auto& lhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
-    // auto& rhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
-    // use lhs_nonconst.begin(), etc.
-}
+//    // Hint: if you get warnings about const_iterator, you can try using const_cast
+//    // as a hack to cast away the const-ness of your parameter.
+//    // auto& lhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
+//    // auto& rhs_nonconst = const_cast<GapBuffer<T>&>(lhs);
+//    // use lhs_nonconst.begin(), etc.
+//}
 
-template <typename T>
-bool operator>(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-    // TODO: implement this operator (~1 line long)
-}
+//template <typename T>
+//bool operator>(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+//    return !(left < right);
+//}
 
-template <typename T>
-bool operator<=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-    // TODO: implement this operator (~1 line long)
-}
+//template <typename T>
+//bool operator<=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+//    return (left < right) || (left == right);
+//}
 
-template <typename T>
-bool operator>=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
-    // TODO: implement this operator (~1 line long)
-}
+//template <typename T>
+//bool operator>=(const GapBuffer<T>& lhs, const GapBuffer<T>& rhs) {
+//    return (left > right) || (left == right)
+//}
 
 // Part 4: turn everything into a template!
 

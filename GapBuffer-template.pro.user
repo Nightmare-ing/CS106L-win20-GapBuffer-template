@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 9.0.2, 2023-06-29T10:34:05. -->
+<!-- Written by QtCreator 9.0.2, 2023-06-29T10:36:16. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -68,7 +68,55 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST0_warning">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1A_insert_at_test_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1B_insert_then_delete_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1C_edit_at_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1D_insert_move_cursor_at_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1E_insert_delete_mixed_hard">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1F_delete_empty_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1G_insert_move_mixed">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1H_move_cursor_jump">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1I_reserve_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1J_reserve_edge">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST1K_reserve_explicit_stress">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST2A_const_test">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3A_fill_constructor_test_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3B_fill_constructor_edge">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3C_index_operator_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3D_index_operator_const">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3E_index_operator_reference_advanced">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3F_ostream_insertion_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3G_ostream_insertion_edge">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3H_ostream_insertion_chain">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3I_equality_inequality_operator">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST3J_comparison_operator">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST5A_iterator_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST5B_iterator_dereference">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST5C_iterator_bidirectional">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST5D_iterator_edge">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST5E_iterator_random_access">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST5F_iterator_advanced_sort">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST6A_initializer_list_basic_test">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST6B_initializer_list_edge_test">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST6C_copy_constructor_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST6D_copy_assignment_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST6E_copy_edge">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST6F_comparison_operator_set">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7A_move_constructor_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7B_move_constructor_time">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7C_move_assignment_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7D_move_assignment_time">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7E_move_edge">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7F_insert_rvalue_time">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7G_insert_lvalue">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST7H_nested_insert">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST9A_emplace_basic">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST9B_edge">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TEST9C_emplace_time">Checked</value>
+    <value type="Qt::CheckState" key="1@/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/tst_testcases.cpp:TestCases">Checked</value>
+   </valuemap>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuemap type="QVariantMap" key="ClangTools">
@@ -236,12 +284,14 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/GapBuffer-template.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/smile/Desktop/CS106L-win2020/GapBuffer-template/GapBuffer-template.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
+    <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/smile/Desktop/CS106L-win2020/build-GapBuffer-template-Qt_6_4_2_for_macOS-Debug/GapBuffer-template.app/Contents/MacOS</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
