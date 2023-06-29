@@ -619,7 +619,6 @@ void TestCases::TEST3J_comparison_operator() {
  * Tests the function of the for-each loop, which uses your basic iterator operators.
  */
 void TestCases::TEST5A_iterator_basic() {
-    QSKIP("Remove this statement once you've finished implementing iterators.");
     vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     GapBuffer<int> buf;
     for (int val : vec) {
@@ -641,8 +640,6 @@ void TestCases::TEST5A_iterator_basic() {
  * the element when looping by reference actually changes the element.
  */
 void TestCases::TEST5B_iterator_dereference() {
-    QSKIP("Remove this statement once you've finished implementing iterators.");
-
     vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     GapBuffer<int> buf;
     for (int val : vec) {
@@ -662,8 +659,6 @@ void TestCases::TEST5B_iterator_dereference() {
  * Tests a while loop of an iterator moving backwards from the cursor.
  */
 void TestCases::TEST5C_iterator_bidirectional() {
-    QSKIP("Remove this statement once you've finished implementing iterators.");
-
     vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     GapBuffer<int> buf;
     for (int val : vec) {
@@ -688,8 +683,6 @@ void TestCases::TEST5C_iterator_bidirectional() {
  * +, -, +=, and -=, which you wrote.
  */
 void TestCases::TEST5D_iterator_edge() {
-    QSKIP("Remove this statement once you've implemented iterators.");
-
     GapBuffer<int> empty;
     QVERIFY(empty.begin() == empty.end());
     QVERIFY(empty.begin() == empty.cursor());
@@ -705,8 +698,6 @@ void TestCases::TEST5D_iterator_edge() {
  * +, -, +=, and -=, which youwrote.
  */
 void TestCases::TEST5E_iterator_random_access() {
-    QSKIP("Remove this statement once you've implemented iterators.");
-
     vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     GapBuffer<int> buf;
     for (int val : vec) {
@@ -737,8 +728,6 @@ void TestCases::TEST5E_iterator_random_access() {
  * work purely on the iterators.
  */
 void TestCases::TEST5F_iterator_advanced_sort() {
-    QSKIP("Remove this statement once you've implemented iterators.");
-
     vector<int> vec{5, 2, 6, 3, 9, 0, 1, 8, 4, 7};
     GapBuffer<int> buf;
     for (int val : vec) {
