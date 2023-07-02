@@ -751,8 +751,6 @@ void TestCases::TEST5F_iterator_advanced_sort() {
  * Tests the initializer_list constructor.
  */
 void TestCases::TEST6A_initializer_list_basic_test() {
-    QSKIP("Remove this statement once you've finished initializer list.");
-
     GapBuffer<int> buf{1, 2, 3, 4, 5};
     for (int i = 0; i < 5; ++i) {
         QVERIFY(buf[i] == i+1);
@@ -764,8 +762,6 @@ void TestCases::TEST6A_initializer_list_basic_test() {
  * Tests an edge case for the initializer_list constructor.
  */
 void TestCases::TEST6B_initializer_list_edge_test() {
-    QSKIP("Remove this statement once you've finished initializer list.");
-
     GapBuffer<int> buf_empty{};
     QVERIFY(buf_empty.size() == 0);
     QVERIFY(buf_empty.cursor_index() == 0);
@@ -787,8 +783,6 @@ void TestCases::TEST6B_initializer_list_edge_test() {
  * Tests basic behavior for the copy constructor.
  */
 void TestCases::TEST6C_copy_constructor_basic() {
-    QSKIP("Remove this statement once you've implemented copy constructor.");
-
     GapBuffer<int> buf1{1, 2, 3};
     GapBuffer<int> buf2 = buf1; // constructor
 
@@ -816,8 +810,6 @@ void TestCases::TEST6C_copy_constructor_basic() {
  * Tests basic behavior for the copy assignment operator.
  */
 void TestCases::TEST6D_copy_assignment_basic() {
-    QSKIP("Remove this statement once you've implemented copy assignment.");
-
     GapBuffer<int> buf1{1, 2, 3};
     GapBuffer<int> buf2{4};
     buf2 = buf1; // assignment
@@ -842,8 +834,6 @@ void TestCases::TEST6D_copy_assignment_basic() {
  * Tests copy constructor and assignment operator for a few edge cases.
  */
 void TestCases::TEST6E_copy_edge() {
-    QSKIP("Remove this statement once you've implemented copy operations.");
-
     GapBuffer<int> buf1{1};
     GapBuffer<int> buf2 = buf1;
     int two = 2;
@@ -888,8 +878,6 @@ void TestCases::TEST6E_copy_edge() {
  * completing part 3, you get a double free error.
  */
 void TestCases::TEST6F_comparison_operator_set() {
-    QSKIP("Remove this statement once you've implemented copy operations.");
-
     // finally I can use initializer lists here.
     GapBuffer<char> buf1{'a','v','e','r','y'};
     GapBuffer<char> buf2{'a','n','n','a'};

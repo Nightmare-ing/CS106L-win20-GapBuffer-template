@@ -120,19 +120,17 @@ GapBuffer<T>::GapBuffer() :
     _logical_size(0),
     _buffer_size(kDefaultSize),
     _cursor_index(0),
-    _gap_size(kDefaultSize) {
-
-    _elems = new value_type[_buffer_size];
-}
+    _gap_size(kDefaultSize),
+    _elems(new value_type[_buffer_size]) {}
 
 template <typename T>
 GapBuffer<T>::GapBuffer(size_type count, const value_type& val) :
     _logical_size(count),
     _buffer_size(2 * count),
     _cursor_index(_logical_size),
-    _gap_size(_buffer_size - _logical_size){
+    _gap_size(_buffer_size - _logical_size),
+    _elems(new value_type[_buffer_size]) {
 
-    _elems = new value_type[_buffer_size];
     for (size_t i = 0; i < count; ++i) {
         _elems[i] = val;
     }
@@ -358,20 +356,48 @@ typename GapBuffer<T>::iterator GapBuffer<T>::cursor() {
 template <typename T>
 GapBuffer<T>::~GapBuffer() {
     // TODO: implement this destructor (~1 line long)
+    delete[] _elems;
 }
 template <typename T>
-GapBuffer<T>::GapBuffer(std::initializer_list<T> init) {
-    // TODO: implement this initializer list constructor (~2 lines long)
+GapBuffer<T>::GapBuffer(std::initializer_list<T> init) :
+    _logical_size(init.size()),
+    _buffer_size(2 * _logical_size),
+    _cursor_index(_logical_size),
+    _gap_size(_buffer_size - _logical_size),
+    _elems(new value_type[_buffer_size]){
+
+    std::copy(init.begin(), init.end(), _elems);
 }
 
 template <typename T>
-GapBuffer<T>::GapBuffer(const GapBuffer& other) {
+GapBuffer<T>::GapBuffer(const GapBuffer& other) :
+    _logical_size(other._logical_size),
+    _buffer_size(other._buffer_size),
+    _cursor_index(other.cursor_index()),
+    _gap_size(other._gap_size),
+    _elems(new value_type[_buffer_size]){
+
+    auto& other_nonconst = const_cast<GapBuffer<T>&>(other);
+    std::copy(other_nonconst.begin(), other_nonconst.end(), begin());
     // TODO: implement this copy constructor (~4 lines long)
     // use member initialization list!
 }
 
 template <typename T>
 GapBuffer<T>& GapBuffer<T>::operator=(const GapBuffer& rhs) {
+
+    if (this != &rhs) {
+
+        delete[] _elems;
+        _logical_size = rhs._logical_size;
+        _buffer_size = rhs._buffer_size;
+        _cursor_index = rhs._cursor_index;
+        _gap_size = rhs._gap_size;
+        _elems = new value_type[_buffer_size];
+        auto& rhs_nonconst = const_cast<GapBuffer<T>&>(rhs);
+        std::copy(rhs_nonconst.begin(), rhs_nonconst.end(), begin());
+    }
+    return *this;
     // TODO: implement this copy assignment operator (~8 lines long)
 }
 
