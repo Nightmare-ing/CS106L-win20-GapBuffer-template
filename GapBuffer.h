@@ -403,7 +403,14 @@ GapBuffer<T>& GapBuffer<T>::operator=(const GapBuffer& rhs) {
 
 // Part 7: Move semantics
 template <typename T>
-GapBuffer<T>::GapBuffer(GapBuffer&& other) {
+GapBuffer<T>::GapBuffer(GapBuffer&& other) :
+    _logical_size(std::move(other._logical_size)),
+    _buffer_size(std::move(other._buffer_size)),
+    _cursor_index(std::move(other._cursor_index)),
+    _gap_size(std::move(other._gap_size)),
+    _elems(std::move(other._elems)){
+
+    other._elems = nullptr;
     // TODO: implement this move constructor (~4 lines long)
     // use initializer list!
 
@@ -415,6 +422,16 @@ GapBuffer<T>::GapBuffer(GapBuffer&& other) {
 
 template <typename T>
 GapBuffer<T>& GapBuffer<T>::operator=(GapBuffer&& rhs) {
+    if (this != &rhs) {
+        _logical_size = std::move(rhs._logical_size);
+        _buffer_size = std::move(rhs._buffer_size);
+        _cursor_index = std::move(rhs._cursor_index);
+        _gap_size = std::move(rhs._gap_size);
+        delete[] _elems;
+        _elems = std::move(rhs._elems);
+        rhs._elems = nullptr;
+    }
+    return *this;
     // TODO: implement this move assignment operator (~7 lines long)
 
     // Hint: if you get warnings about const_iterator, you can try using const_cast
@@ -425,9 +442,15 @@ GapBuffer<T>& GapBuffer<T>::operator=(GapBuffer&& rhs) {
 
 template <typename T>
 void GapBuffer<T>::insert_at_cursor(value_type&& element) {
+    if (_gap_size == 0) {
+        reserve(2 * _buffer_size);
+    }
+
+    _elems[_cursor_index] = std::move(element);
+    ++_cursor_index;
+    ++_logical_size;
+    --_gap_size;
     // TODO: implement this insert function (takes in an r-value) (~7 lines long)
-    insert_at_cursor(element); // by default, calls the l-value version above
-    // when you are ready to implement, remove the insert_at_cursor call.
 }
 
 // Part 8: Make your code RAII-compliant - change the code throughout

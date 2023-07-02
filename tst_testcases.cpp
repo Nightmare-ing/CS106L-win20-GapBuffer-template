@@ -902,8 +902,6 @@ void TestCases::TEST6F_comparison_operator_set() {
  * Tests basic behavior of the move constructor.
  */
 void TestCases::TEST7A_move_constructor_basic() {
-    QSKIP("Remove this statement once you've implemented move constructor.");
-
     GapBuffer<int> buf1(10, 1);
     GapBuffer<int> buf2 = std::move(buf1); // constructor
 
@@ -918,8 +916,6 @@ void TestCases::TEST7A_move_constructor_basic() {
  * i.e. you should not be copying any elements.
  */
 void TestCases::TEST7B_move_constructor_time() {
-    QSKIP("Remove this statement once you've implemented move constructor.");
-
     GapBuffer<int> buf3(10000, 1);
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -937,8 +933,6 @@ void TestCases::TEST7B_move_constructor_time() {
  * Tests the basic behavior the move assignment operator.
  */
 void TestCases::TEST7C_move_assignment_basic() {
-    QSKIP("Remove this statement once you've implemented move assignment.");
-
     GapBuffer<int> buf1(10, 1);
     GapBuffer<int> buf2;
     buf1.move_cursor(-3);
@@ -957,8 +951,6 @@ void TestCases::TEST7C_move_assignment_basic() {
  * i.e. you should not be copying any elements.
  */
 void TestCases::TEST7D_move_assignment_time() {
-    QSKIP("Remove this statement once you've implemented move assignment.");
-
     GapBuffer<int> buf3(10000, 1);
     auto start = std::chrono::high_resolution_clock::now();
     GapBuffer<int> buf4;
@@ -977,8 +969,6 @@ void TestCases::TEST7D_move_assignment_time() {
  * in a few edge cases.
  */
 void TestCases::TEST7E_move_edge() {
-    QSKIP("Remove this statement once you've implemented move operations.");
-
     GapBuffer<int> buf1{1};
     GapBuffer<int> buf2 = std::move(buf1);
     int two = 2;
@@ -1013,8 +1003,6 @@ void TestCases::TEST7E_move_edge() {
  * Also checks for the efficiency (no copying!)
  */
 void TestCases::TEST7F_insert_rvalue_time() {
-    QSKIP("Remove this statement once you've implemented the r-value insert_at_cursor.");
-
     GapBuffer<std::vector<int>> buf;
     GapBuffer<std::vector<int>> answer;
     vector<int> vec(10000, 1);
@@ -1031,8 +1019,6 @@ void TestCases::TEST7F_insert_rvalue_time() {
  * Tests that insert_at_cursor still corrects correctly for an l-value.
  */
 void TestCases::TEST7G_insert_lvalue() {
-    QSKIP("Remove this statement once you've implemented the r-value insert_at_cursor.");
-
     GapBuffer<std::vector<int>> buf;
     vector<int> vec(10000, 42);
     vector<int> answer(10000, 42);
@@ -1046,8 +1032,6 @@ void TestCases::TEST7G_insert_lvalue() {
  * different elements within the nested class.
  */
 void TestCases::TEST7H_nested_insert() {
-    QSKIP("Remove this statement once you've implemented the r-value insert_at_cursor.");
-
     GapBuffer<GapBuffer<int>> buf;
     GapBuffer<int> toAdd{1, 2, 3};
     buf.insert_at_cursor(toAdd);
