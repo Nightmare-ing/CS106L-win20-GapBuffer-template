@@ -67,7 +67,7 @@ private:
     size_type _buffer_size;  // uses array_index
     size_type _cursor_index; // uses array_index
     size_type _gap_size;
-    pointer _elems;          // uses array_index
+    std::unique_ptr<value_type[]> _elems;          // uses array_index
 
     size_type to_external_index(size_type array_index) const;
     size_type to_array_index(size_type external_index) const;
@@ -121,7 +121,7 @@ GapBuffer<T>::GapBuffer() :
     _buffer_size(kDefaultSize),
     _cursor_index(0),
     _gap_size(kDefaultSize),
-    _elems(new value_type[_buffer_size]) {}
+    _elems(std::make_unique<value_type[]>(_buffer_size)) {}
 
 template <typename T>
 GapBuffer<T>::GapBuffer(size_type count, const value_type& val) :
@@ -129,7 +129,7 @@ GapBuffer<T>::GapBuffer(size_type count, const value_type& val) :
     _buffer_size(2 * count),
     _cursor_index(_logical_size),
     _gap_size(_buffer_size - _logical_size),
-    _elems(new value_type[_buffer_size]) {
+    _elems(std::make_unique<value_type[]>(_buffer_size)) {
 
     for (size_t i = 0; i < count; ++i) {
         _elems[i] = val;
@@ -356,7 +356,6 @@ typename GapBuffer<T>::iterator GapBuffer<T>::cursor() {
 template <typename T>
 GapBuffer<T>::~GapBuffer() {
     // TODO: implement this destructor (~1 line long)
-    delete[] _elems;
 }
 template <typename T>
 GapBuffer<T>::GapBuffer(std::initializer_list<T> init) :
@@ -364,9 +363,9 @@ GapBuffer<T>::GapBuffer(std::initializer_list<T> init) :
     _buffer_size(2 * _logical_size),
     _cursor_index(_logical_size),
     _gap_size(_buffer_size - _logical_size),
-    _elems(new value_type[_buffer_size]){
+    _elems(std::make_unique<value_type[]>(_buffer_size)){
 
-    std::copy(init.begin(), init.end(), _elems);
+    std::copy(init.begin(), init.end(), _elems.get());
 }
 
 template <typename T>
@@ -375,7 +374,7 @@ GapBuffer<T>::GapBuffer(const GapBuffer& other) :
     _buffer_size(other._buffer_size),
     _cursor_index(other.cursor_index()),
     _gap_size(other._gap_size),
-    _elems(new value_type[_buffer_size]){
+    _elems(std::make_unique<value_type[]>(_buffer_size)){
 
     auto& other_nonconst = const_cast<GapBuffer<T>&>(other);
     std::copy(other_nonconst.begin(), other_nonconst.end(), begin());
@@ -388,12 +387,11 @@ GapBuffer<T>& GapBuffer<T>::operator=(const GapBuffer& rhs) {
 
     if (this != &rhs) {
 
-        delete[] _elems;
         _logical_size = rhs._logical_size;
         _buffer_size = rhs._buffer_size;
         _cursor_index = rhs._cursor_index;
         _gap_size = rhs._gap_size;
-        _elems = new value_type[_buffer_size];
+        _elems = std::make_unique<value_type[]>(_buffer_size);
         auto& rhs_nonconst = const_cast<GapBuffer<T>&>(rhs);
         std::copy(rhs_nonconst.begin(), rhs_nonconst.end(), begin());
     }
@@ -427,7 +425,6 @@ GapBuffer<T>& GapBuffer<T>::operator=(GapBuffer&& rhs) {
         _buffer_size = std::move(rhs._buffer_size);
         _cursor_index = std::move(rhs._cursor_index);
         _gap_size = std::move(rhs._gap_size);
-        delete[] _elems;
         _elems = std::move(rhs._elems);
         rhs._elems = nullptr;
     }
@@ -453,7 +450,7 @@ void GapBuffer<T>::insert_at_cursor(value_type&& element) {
     // TODO: implement this insert function (takes in an r-value) (~7 lines long)
 }
 
-// Part 8: Make your code RAII-compliant - change the code throughout
+// Part 8: Make your code RAII-compliant - change the code
 
 // optional:
 template <typename T>
@@ -473,14 +470,14 @@ void GapBuffer<T>::move_cursor(int delta) {
         throw std::string("move_cursor: delta moves cursor out of bounds");
     }
     if (delta > 0) {
-        auto begin_move = _elems + _cursor_index + _gap_size;
+        auto begin_move = _elems.get() + _cursor_index + _gap_size;
         auto end_move = begin_move + delta;
-        auto destination = _elems + _cursor_index;
+        auto destination = _elems.get() + _cursor_index;
         std::move(begin_move, end_move, destination);
     } else {
-        auto end_move = _elems + _cursor_index;
+        auto end_move = _elems.get() + _cursor_index;
         auto begin_move = end_move + delta;
-        auto* destination = _elems + _cursor_index + _gap_size + delta;
+        auto* destination = _elems.get() + _cursor_index + _gap_size + delta;
         std::move(begin_move, end_move, destination);
     }
     _cursor_index += delta;
@@ -489,14 +486,13 @@ void GapBuffer<T>::move_cursor(int delta) {
 template <typename T>
 void GapBuffer<T>::reserve(size_type new_size) {
     if (_logical_size >= new_size) return;
-    auto new_elems = new T[new_size];
-    std::move(_elems, _elems + _cursor_index, new_elems);
+    std::unique_ptr<value_type[]> new_elems = std::make_unique<value_type[]>(new_size);
+    std::move(_elems.get(), _elems.get() + _cursor_index, new_elems.get());
     size_t new_gap_size = new_size - _logical_size;
-    std::move(_elems + _buffer_size - _logical_size + _cursor_index,
-              _elems + _buffer_size,
-              new_elems + _cursor_index + new_gap_size);
+    std::move(_elems.get() + _buffer_size - _logical_size + _cursor_index,
+              _elems.get() + _buffer_size,
+              new_elems.get() + _cursor_index + new_gap_size);
     _buffer_size = new_size;
-    delete [] _elems;
     _elems = std::move(new_elems);
     _gap_size = new_gap_size;
 }
