@@ -456,6 +456,7 @@ void GapBuffer<T>::insert_at_cursor(value_type&& element) {
 template <typename T>
 template <typename... Args>
 void GapBuffer<T>::emplace_at_cursor(Args&&... args) {
+    insert_at_cursor(T({args...}));
     // TODO: optional: implement function
     // remember to perfectly forward the arguments to the constructor of T.
 }
